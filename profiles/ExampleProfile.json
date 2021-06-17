@@ -1,0 +1,19 @@
+{
+    "name"    : "Example Profile", 
+    "__doc__" : "An example profile. All __doc__ attributes are ignored and only for documentation",
+
+    "hosts" : {
+        "my-app-server" : "https://my-app.local", 
+        "my-sso-server" : "https://my-sso.local",
+        "test-data-server" : "http://test-data-server.local",
+        "__doc__" :  "Protocol is part of host string to allow things like unencrypted dev environments"
+    },
+
+    "vars" : {
+        "sso-client-cert-file" : "my-client-cert.pem", 
+        "sso-client-cert-base64" : "MIIKRDCCCSygAwIBAgIQK6Ebktef1SYCnh6tUNlvPzANBgkqhkiG9w0BAQsFADB1...",
+        "think-time-min" : 1,
+        "think-time-max" : 2, 
+        "__doc__" : "You may change the structure of the profile as needed by your project too."
+    }
+}
