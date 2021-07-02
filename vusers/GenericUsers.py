@@ -66,5 +66,6 @@ def get_try_script_instance(user_class, host):
 
     env = Environment(user_classes=[user_class])
     user_class.host = host
+    user_class.is_tryscript = True
     return user_class(env)
 
