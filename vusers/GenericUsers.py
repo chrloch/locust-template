@@ -23,7 +23,7 @@ class TryScriptAwareUser():
     """
     def _check_tryscript(self) -> bool:
         """
-        Retrun the value of the try script flag set by `get_try_script_instance`. 
+        Return the value of the try script flag set by `get_try_script_instance`. 
 
         If the User class is instantiated via locust itself during a load test or via other means than
         `get_try_script_instance`, this method always returns `False`.
