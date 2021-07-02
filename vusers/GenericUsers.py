@@ -5,6 +5,33 @@ import time
 import json
 import logging
 
+class TryScriptAwareUser():
+    """
+    A Mixin to enable users to read the try script flag from get_try_script_instance.    
+
+    Usage: Add `TryScriptAwareUser`to the class list of your User class and use `self.is_tryscript` to check
+    if the script runs in try script mode:
+
+    ```
+    class MyUser(HttpUser, TryScriptAwareUser):
+        @task
+        def my_task(self):
+            if self.is_tryscript:
+                print("I'm running in try script mode")
+    ```
+
+    """
+    def _check_tryscript(self) -> bool:
+        """
+        Return the value of the try script flag set by `get_try_script_instance`. 
+
+        If the User class is instantiated via locust itself during a load test or via other means than
+        `get_try_script_instance`, this method always returns `False`.
+        """        
+        return getattr(self, "_is_tryscript", False)
+
+    is_tryscript = property(fget=_check_tryscript)
+
 class ProfileBasedUser(User):
     """ A user class that uses the mandatory host string as a profile name. 
         Profiles are JSON files that may contain several hosts and additional settings.
@@ -66,5 +93,6 @@ def get_try_script_instance(user_class, host):
 
     env = Environment(user_classes=[user_class])
     user_class.host = host
+    user_class._is_tryscript = True
     return user_class(env)
 
