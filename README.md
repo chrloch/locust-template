@@ -105,6 +105,8 @@ Using generic classes from the template project and multiple inheritance
     scheme ``f"{profileName}.json"`` 
 * ``StepStructuredUser`` adds features to structure its tasks in logical steps. 
     Every step is preceded by a wait_time.
+* ``TryScriptAwareUser`` allows to change behavior depending on whether a user
+    is running in try script mode or not. Ideally you should not need this.
 
 ## Working with profiles
 
@@ -128,8 +130,35 @@ You can put any setting or variable that you want into a profile file and even
 when your environment only has one host, it may still be useful to change the 
 meaning of t he host field to profile for your purpose. 
 
-There is one major limitation obviously: Profiles always affect a test as a whole.
-It is not possible to run a test with 40% Profile1 and 60% Profile2. 
+Profiles always affect a test as a whole. It is not possible to run a test 
+with 40% Profile1 and 60% Profile2. Settings that differ between two groups
+of virtual users can be made in the scenario file. 
+
+## Writing scenarios
+
+A scenario file is just another name for a locustfile. I've still chosen to 
+name it differently, because a virtual user file is technically a locustfile too. 
+
+There are only two things that need to be done in a scenario file:
+1. import all user classes that are part of the scenario
+2. assign a weight attribute to them
+
+The weight is applied to the total number of users that you spawn in the test.
+so if you have `UserType1.weight = 1` and `UserType2.weight = 3`, a test with
+100 VUsers will have 25 Type1 and 75 Type2 users.
+
+### Additional settings in the scenario
+
+You can override a virtual user's wait time in the scenario. This is very
+useful when you have both a stress test scenario and a load test scenario. 
+
+If your user's behavior is based on some probability values, it's a good idea
+to put the limits in a class variable that can be overridenn in a profile.
+With this, you can have scenarios with different likeliness of a certain 
+user behavior.
+
+
+
 
 
 

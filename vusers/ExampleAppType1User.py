@@ -29,17 +29,17 @@ class ExampleAppType1User(ExampleAppUser):
 
     def step_view_thumbs(self):
         self.log.info('Viewing thumbnails')
+        # Code goes here
 
     def step_upload_file(self, filename):
         self.log.info(f'Uploading {filename}')
+        # Code goes here
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
 
 def try_script():
-    # Usually we would use a different profile for try-script than for load testing, for example
-    # with think time to a lower value
     user = get_try_script_instance(ExampleAppType1User, 'ExampleProfile' ) 
     
     # For try-script runs, test data servers are usually not active and we can simply override the test

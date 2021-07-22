@@ -18,8 +18,6 @@ class ExampleAppUser(ProfileBasedUser, StepStructuredUser, HttpUser):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # In this project, we want the think time to be defined by the profile and not the vuser definition
-        self.__class__.wait_time = between( self.profile["vars"]["think-time-min"], self.profile["vars"]["think-time-max"] )
         self.test_data = None
 
 
@@ -28,7 +26,7 @@ class ExampleAppUser(ProfileBasedUser, StepStructuredUser, HttpUser):
         # upon arrival of users.
         if self.test_data is None and "test-data-server" in self.profile["hosts"]: 
             response = requests.get( f'{self.profile["hosts"]["test-data-server"]}/bucket/accounts')
-            self.test_data = response.json()
+            #self.test_data = response.json()
 
         self.step( "TC0_01 Login", self.step_login )
 

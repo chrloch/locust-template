@@ -12,8 +12,7 @@
     "vars" : {
         "sso-client-cert-file" : "my-client-cert.pem", 
         "sso-client-cert-base64" : "MIIKRDCCCSygAwIBAgIQK6Ebktef1SYCnh6tUNlvPzANBgkqhkiG9w0BAQsFADB1...",
-        "think-time-min" : 1,
-        "think-time-max" : 2, 
+        "some-other-global-setting" : 42,  
         "__doc__" : "You may change the structure of the profile as needed by your project too."
     }
 }
