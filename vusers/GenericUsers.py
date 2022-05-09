@@ -1,6 +1,7 @@
 
 from locust import User
 from locust.env import Environment
+import os
 import time
 import json
 import logging
@@ -94,5 +95,9 @@ def get_try_script_instance(user_class, host):
     env = Environment(user_classes=[user_class])
     user_class.host = host
     user_class._is_tryscript = True
-    return user_class(env)
 
+    instance = user_class(env)
+    instance.client.proxies.update(
+        {'http': os.environ.get('http_proxy'), 'https': os.environ.get('https_proxy')})
+
+    return instance
